@@ -1,6 +1,6 @@
 # Noor — Full-Stack Developer & AI Engineer
 
-A complete, responsive personal portfolio for **Syeda Noor ul Ain Fatima**, professionally presented as **Syeda Noor Fatima / Noor**. Built with Next.js App Router, React, strict TypeScript, Tailwind CSS, Framer Motion, and Lucide.
+A complete, responsive personal portfolio for **Syeda Noor ul Ain Fatima**, using the owner-confirmed full name for public credits and metadata and **Noor** as the compact wordmark. Built with Next.js App Router, React, strict TypeScript, Tailwind CSS, Framer Motion, and Lucide.
 
 The visual direction pairs a near-black editorial layout with **the owner’s selected hijab portrait**, locally served typography, restrained blue/violet accents, and large project presentations. The latest owner-supplied image is used as provided, with only resizing and WebP optimisation; no additional facial retouching or generation is applied. No experience figures, employment history, testimonials, proficiency percentages, or client outcomes have been invented.
 

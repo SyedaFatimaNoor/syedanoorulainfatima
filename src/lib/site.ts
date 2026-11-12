@@ -1,6 +1,9 @@
+// Owner-confirmed spelling; keep every formal name and credit consistent.
+const fullName = "Syeda Noor ul Ain Fatima";
+
 export const site = {
-  name: "Syeda Noor Fatima",
-  fullName: "Syeda Noor ul Ain Fatima",
+  name: fullName,
+  fullName,
   shortName: "Noor",
   role: "Full-Stack Developer | AI Engineer | AI Agent Developer",
   email: "syedanoorfatima610@gmail.com",
@@ -9,8 +12,7 @@ export const site = {
   whatsappNumber: "923391451101",
   whatsappDisplay: "+92 339 1451101",
   location: "Karachi, Pakistan",
-  description:
-    "Full-stack development, thoughtful web experiences, and intelligent AI-powered systems. Explore the work of Syeda Noor Fatima, a developer based in Karachi and open to international collaborations.",
+  description: `Full-stack development, thoughtful web experiences, and intelligent AI-powered systems. Explore the work of ${fullName}, a developer based in Karachi and open to international collaborations.`,
 } as const;
 
 // Owner-confirmed details work with unset or previously blank configuration.

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   applicationName: "Noor — Developer & AI Engineer",
   authors: [{ name: site.name, url: site.github }],
   keywords: [
-    "Syeda Noor Fatima",
+    site.name,
     "Full-Stack Developer",
     "AI Engineer",
     "AI Agent Developer",

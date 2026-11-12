@@ -28,7 +28,29 @@ test("complete homepage: sections, verified links, images and no browser errors"
   });
   const response = await page.goto("/", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle(/Syeda Noor Fatima.*Full-Stack Developer/);
+  await expect(page).toHaveTitle(
+    /Syeda Noor ul Ain Fatima.*Full-Stack Developer/,
+  );
+  const fullName = "Syeda Noor ul Ain Fatima";
+  await expect(page.locator('meta[name="author"]')).toHaveAttribute(
+    "content",
+    fullName,
+  );
+  for (const selector of [
+    'meta[name="description"]',
+    'meta[name="keywords"]',
+    'meta[property="og:title"]',
+    'meta[property="og:image:alt"]',
+    'meta[name="twitter:title"]',
+  ]) {
+    await expect(page.locator(selector)).toHaveAttribute(
+      "content",
+      new RegExp(fullName),
+    );
+  }
+  await expect(page.locator(".about-copy")).toContainText(`I’m ${fullName}`);
+  await expect(page.locator(".footer-bottom")).toContainText(fullName);
+  await expect(page.locator("body")).not.toContainText("Syeda Noor Fatima");
   await expect(page.locator("h1")).toContainText("I build digital");
   await expect(page.locator(".role-text")).toContainText(
     "Full-Stack Developer",
@@ -82,7 +104,7 @@ test("selected portrait loads locally with top-aligned framing and keyboard hero
 }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   const portrait = page.getByRole("img", {
-    name: "Syeda Noor Fatima wearing a black hijab",
+    name: "Syeda Noor ul Ain Fatima wearing a black hijab",
   });
   await expect(portrait).toHaveCount(1);
   await expect(portrait).toHaveAttribute("width", "960");
@@ -110,7 +132,7 @@ test("selected portrait loads locally with top-aligned framing and keyboard hero
   // while the taller source's lower jacket extends beyond the visible crop.
   expect(dimensions!.height / dimensions!.width).toBeCloseTo(9 / 8, 1);
   await expect(page.locator(".portrait-hero figcaption")).toContainText(
-    "Syeda Noor Fatima",
+    "Syeda Noor ul Ain Fatima",
   );
   await expect(page.locator(".hero-sculpture")).toHaveCount(0);
   for (const [label, destination] of [
@@ -156,6 +178,8 @@ test("confirmed LinkedIn and WhatsApp contacts are linked without setup or track
   const person = JSON.parse(
     await page.locator('script[type="application/ld+json"]').innerText(),
   );
+  expect(person.name).toBe("Syeda Noor ul Ain Fatima");
+  expect(person.alternateName).toBe("Noor");
   expect(person.sameAs).toContain(linkedin);
 });
 
@@ -350,6 +374,12 @@ test("all project routes, privacy, and the not-found page work", async ({
   await expect(
     page.getByText(/This version prepares an email draft/),
   ).toBeVisible();
+  await expect(page.locator(".privacy-page")).toContainText(
+    "personal portfolio of Syeda Noor ul Ain Fatima, based in Karachi",
+  );
+  await expect(page.locator(".privacy-page")).not.toContainText(
+    "professionally known as",
+  );
   const response = await page.goto("/projects/not-a-project");
   expect(response?.status()).toBe(404);
   await expect(
@@ -454,6 +484,27 @@ test("narrow mobile, tablet-landscape and wide layouts never horizontally overfl
           { message: `${path} at width ${width}` },
         )
         .toBe(true);
+      if (path === "/") {
+        const name = page.locator(".portrait-hero figcaption strong");
+        await expect(name).toHaveText("Syeda Noor ul Ain Fatima");
+        expect(
+          await name.evaluate((element) => {
+            const nameBox = element.getBoundingClientRect();
+            const frame = element.closest("figure")!.getBoundingClientRect();
+            const mark =
+              element.parentElement!.nextElementSibling!.getBoundingClientRect();
+            return (
+              element.scrollWidth <= element.clientWidth + 1 &&
+              element.scrollHeight <= element.clientHeight + 1 &&
+              nameBox.left >= frame.left &&
+              nameBox.right <= mark.left &&
+              nameBox.top >= frame.top &&
+              nameBox.bottom <= frame.bottom
+            );
+          }),
+          `Full name must fit the portrait caption at ${width}px`,
+        ).toBe(true);
+      }
     }
   }
 });
@@ -504,7 +555,7 @@ test("progressive enhancement keeps projects and email available without JavaScr
   await expect(page.locator("h1")).toBeVisible();
   await expect(page.locator(".role-text")).toHaveText("Full-Stack Developer");
   const portrait = page.getByRole("img", {
-    name: "Syeda Noor Fatima wearing a black hijab",
+    name: "Syeda Noor ul Ain Fatima wearing a black hijab",
   });
   await expect(portrait).toBeVisible();
   await expect

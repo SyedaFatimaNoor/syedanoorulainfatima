@@ -29,9 +29,9 @@ export default function PrivacyPage() {
         </p>
         <h2>Who you’re contacting</h2>
         <p>
-          This is the personal portfolio of {site.fullName}, professionally
-          known as {site.name}, based in Karachi, Pakistan. For privacy
-          questions, email <a href={`mailto:${site.email}`}>{site.email}</a>.
+          This is the personal portfolio of {site.name}, based in Karachi,
+          Pakistan. For privacy questions, email{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
         <h2>Your project enquiry</h2>
         <p>

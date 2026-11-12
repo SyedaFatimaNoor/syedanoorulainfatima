@@ -1,12 +1,24 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { getProject, projects } from "../src/lib/projects";
-import { getContactChannels, getSiteUrl } from "../src/lib/site";
+import { getContactChannels, getSiteUrl, site } from "../src/lib/site";
 import sitemap from "../src/app/sitemap";
 
 const linkedin =
   "https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/";
 const whatsapp = "https://wa.me/923391451101";
+
+test("owner-confirmed full name is canonical without changing contact destinations", () => {
+  const fullName = "Syeda Noor ul Ain Fatima";
+  assert.equal(site.name, fullName);
+  assert.equal(site.fullName, fullName);
+  assert.equal(site.shortName, "Noor");
+  assert.ok(site.description.includes(fullName));
+  assert.equal(site.email, "syedanoorfatima610@gmail.com");
+  assert.equal(site.github, "https://github.com/SyedaFatimaNoor");
+  assert.equal(site.linkedin, linkedin);
+  assert.equal(`https://wa.me/${site.whatsappNumber}`, whatsapp);
+});
 
 function withContactEnvironment(check: () => void) {
   const original = {

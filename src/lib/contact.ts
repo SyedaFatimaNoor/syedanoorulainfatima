@@ -64,7 +64,7 @@ export type EnquiryErrors = Partial<Record<keyof Enquiry, string>>;
 export function getEnquiryEmail(enquiry: Enquiry) {
   const subject = `Project enquiry: ${enquiry.service} — ${enquiry.name}`;
   const text = [
-    `Hi Noor,`,
+    `Hi ${site.name},`,
     "",
     enquiry.message,
     "",

@@ -99,6 +99,7 @@ test("constructs a correctly encoded draft without changing project text", () =>
   assert.equal(url.pathname, "syedanoorfatima610@gmail.com");
   assert.equal(url.searchParams.get("subject"), draft.subject);
   assert.equal(url.searchParams.get("body"), draft.text);
+  assert.ok(draft.text.startsWith("Hi Syeda Noor ul Ain Fatima,\n\n"));
   assert.ok(draft.text.includes(enquiry.message));
   assert.ok(draft.text.includes("Budget (USD): Let's discuss"));
 });
