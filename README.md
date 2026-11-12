@@ -2,7 +2,7 @@
 
 A complete, responsive personal portfolio for **Syeda Noor ul Ain Fatima**, professionally presented as **Syeda Noor Fatima / Noor**. Built with Next.js App Router, React, strict TypeScript, Tailwind CSS, Framer Motion, and Lucide.
 
-The visual direction pairs a near-black editorial layout with locally served typography, a metallic connected-systems sculpture, restrained blue/violet accents, and large project presentations. No experience figures, employment history, testimonials, proficiency percentages, or client outcomes have been invented.
+The visual direction pairs a near-black editorial layout with **the owner’s selected hijab portrait**, locally served typography, restrained blue/violet accents, and large project presentations. The latest owner-supplied image is used as provided, with only resizing and WebP optimisation; no additional facial retouching or generation is applied. No experience figures, employment history, testimonials, proficiency percentages, or client outcomes have been invented.
 
 ## Run locally
 
@@ -25,7 +25,8 @@ Stop the development server before building: development and production share th
 ## What's implemented
 
 - Complete hero, about, five-category skills, featured work, six services, five-step process, and contact sections.
-- Responsive desktop/tablet/mobile layouts; local variable fonts; optimised local imagery.
+- A prominent owner-selected portrait, larger editorial typography, a product-thinking About panel, numbered project presentations, readable skill chips, a two-column services layout, and a responsive process timeline.
+- Responsive desktop/tablet/mobile layouts; local variable fonts; optimised local imagery. The mobile hero puts the portrait immediately after the main actions, and the contact form uses full-width mobile fields.
 - Three rotating professional roles; subtle reveal and preview motion; reduced-motion support.
 - Active section navigation, keyboard-accessible mobile modal menu, skip link, visible focus, and back-to-top.
 - All twelve supplied projects, distinct large presentations, three verified public source links, category filters, and independently shareable detail pages. SEO Pilot retains its supplied URL with an explicit unverified-demo notice.
@@ -34,6 +35,20 @@ Stop the development server before building: development and production share th
 - Owner-confirmed LinkedIn and WhatsApp links work without setup, alongside the public email and GitHub profile. Includes privacy, metadata, JSON-LD, social imagery, icons, robots, optional canonical URLs and sitemap, branded navigation-loading feedback, error, and 404 states.
 - Server-rendered content that stays visible without JavaScript; animation is an enhancement, not a prerequisite for reading the work.
 - Unit/API tests, responsive browser tests, automated axe accessibility checks, and a quality-check workflow.
+
+## Portrait and visual assets
+
+`public/images/noor-portrait.webp` is the latest owner-selected portrait (`image-4.png`), optimised to 960 × 1440 and approximately 94 KB. Its transparent background is preserved. The stable 8:9 hero frame uses a top-aligned upper-body crop, keeping the face, hijab, and hand visible without stretching. The full optimised image is retained; raw uploads are not published in Git. See [asset provenance](docs/ASSETS.md) for the integration details.
+
+The hero and About panel use scoped styles in `src/components/hero.module.css` and `src/components/about.module.css`; the shared design system and other section styles remain in `src/app/globals.css`. Retired sculpture and code-window styling was removed rather than layered beneath overrides.
+
+The social card uses the same selected portrait. To regenerate it after an asset or composition change:
+
+```bash
+npm run generate:social
+```
+
+The local Chromium composition script uses the existing test tooling and local fonts. No new runtime dependencies or external image requests are needed. Run browser tasks sequentially on a fresh workspace.
 
 ## Content and contact configuration
 
@@ -99,9 +114,9 @@ npm run format:check
 npm audit
 ```
 
-Browser tests run at **1440 × 1000**, **768 × 1024**, and **390 × 844**, with an additional width sweep from **320 to 1920px**. They check navigation, focus trapping, reduced-motion rendering, filtering, disclosures, validation, real draft preparation, clipboard behaviour, provider UI states, all project routes, privacy, not-found behaviour, image loading, horizontal overflow, browser errors, and WCAG A/AA rules through axe. All twelve project routes participate in the width sweep. Confirmed contact targets, distinct previews, new-case accessibility, verification notices, no-JavaScript rendering, and pending-navigation feedback are also tested at all three primary sizes. Automated tests do not replace human assistive-technology testing.
+Browser tests run at **1440 × 1000**, **768 × 1024**, and **390 × 844**, with an additional width sweep from **320 to 1920px**. They check navigation, focus trapping, reduced-motion rendering, filtering, disclosures, validation, real draft preparation, clipboard behaviour, provider UI states, all project routes, privacy, not-found behaviour, image loading, horizontal overflow, browser errors, and WCAG A/AA rules through axe. All twelve project routes participate in the width sweep. Confirmed contact targets, the selected portrait’s local loading, intrinsic dimensions, and top-aligned framing, keyboard-operated hero actions, distinct previews, all-case accessibility, verification notices, no-JavaScript rendering, and pending-navigation feedback are also tested at all three primary sizes. Automated tests do not replace human assistive-technology testing.
 
-See the [quality review](docs/QUALITY-REVIEW.md) for the completed production-build checks, intentional duplicate-test skips, verification boundaries, and launch configuration. `npm run capture` saves viewport-sized hero, section, form, and additional-project card/case/preview images to ignored `.cache/screenshots/` for visual review. Run browser tests and capture sequentially on a fresh workspace so they do not extract the bundled Chromium binary at the same time.
+See the [quality review](docs/QUALITY-REVIEW.md) for the completed production-build checks, intentional duplicate-test skips, verification boundaries, and launch configuration. `npm run capture` saves viewport-sized hero, portrait, section, form, and all-project card/case/preview images to ignored `.cache/screenshots/` for visual review. Run browser tests and capture sequentially on a fresh workspace so they do not extract the bundled Chromium binary at the same time.
 
 To test an already-running production build:
 
@@ -142,4 +157,4 @@ A patched `minimatch` version is scoped to the TypeScript ESLint parser through 
 6. Configure distributed rate limiting/edge abuse protection where appropriate.
 7. Confirm external project destinations again, especially SEO Pilot, since other deployments can change independently. Update its pending-review note only after verification.
 
-The app can run on a Next.js-compatible Node host or Vercel. This content/contact update does not deploy, merge, buy a domain, or change any existing cloud project. Work stays on the current Arena branch until a repository publishing action is requested.
+The app can run on a Next.js-compatible Node host or Vercel. This UI/portrait update does not deploy, merge, buy a domain, or change any existing cloud project. Work stays on the current Arena branch until a repository publishing action is requested.

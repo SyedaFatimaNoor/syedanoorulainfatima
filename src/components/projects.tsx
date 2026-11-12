@@ -4,7 +4,7 @@ import { Github } from "@/components/ui";
 import { PageLink as Link } from "@/components/page-link";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, MoveUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MoveUpRight } from "lucide-react";
 import { projects, type Project } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { ProjectPreview } from "./project-preview";
@@ -37,15 +37,20 @@ function ProjectCard({
         </span>
       </Link>
       <div className="project-content">
-        <div className="project-kicker">
-          {featured ? (
-            <>
-              <Sparkles size={12} aria-hidden="true" /> FEATURED PROJECT{" "}
-              <span className="kicker-slash">/</span> {project.category}
-            </>
-          ) : (
-            project.kind
-          )}
+        <div className="project-meta-line">
+          <span className="project-number mono" aria-hidden="true">
+            {String(projects.indexOf(project) + 1).padStart(2, "0")}
+          </span>
+          <span className="project-kicker">
+            {featured ? (
+              <>
+                FEATURED BUILD <span className="kicker-slash">/</span>{" "}
+                {project.category}
+              </>
+            ) : (
+              project.kind
+            )}
+          </span>
         </div>
         <div className="project-title-row">
           <h3 id={`project-${project.slug}`}>
@@ -62,9 +67,9 @@ function ProjectCard({
           )}
         </div>
         <p className="project-description">{project.description}</p>
-        {project.problem && (
+        {featured && project.problem && (
           <p className="project-purpose">
-            <span>THE PURPOSE</span>
+            <span>WHY IT EXISTS</span>
             {project.problem}
           </p>
         )}
@@ -130,11 +135,9 @@ export function Projects() {
           <SectionLabel number="03">SELECTED WORK</SectionLabel>
           <div className="section-heading-row">
             <h2 id="work-heading">
-              Ideas made real.
+              From thinking to making.
               <br />
-              <span className="muted-heading">
-                One thoughtful build at a time.
-              </span>
+              <span className="muted-heading">A look inside my work.</span>
             </h2>
             <p>
               A selection of web experiences and intelligent

@@ -1,21 +1,20 @@
 "use client";
 
-import { Linkedin } from "@/components/ui";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
   ArrowDownRight,
-  ArrowRight,
   ArrowUpRight,
-  Code2,
   Globe2,
+  MapPin,
   Sparkles,
 } from "lucide-react";
-import { BrandIcon, ExternalLink } from "./ui";
+import { BrandIcon, ExternalLink, Linkedin } from "./ui";
 import { site } from "@/lib/site";
-import knot from "../../public/images/intelligence-knot.webp";
+import portrait from "../../public/images/noor-portrait.webp";
+import styles from "./hero.module.css";
 
 const roles = ["Full-Stack Developer", "AI Engineer", "AI Agent Developer"];
 
@@ -32,24 +31,27 @@ export function Hero({ linkedin }: { linkedin: string | null }) {
   }, [reducedMotion]);
 
   return (
-    <section className="hero" aria-labelledby="hero-heading">
-      <div className="hero-grid-background" aria-hidden="true" />
+    <section
+      className={`portrait-hero ${styles.hero}`}
+      aria-labelledby="hero-heading"
+    >
       <div className="container">
-        <div className="hero-topline">
-          <span className="availability">
-            <span className="status-dot" />
-            OPEN TO COLLABORATION
+        <div className={styles.topline}>
+          <span className={styles.availability}>
+            <span className="status-dot" /> OPEN TO COLLABORATION
           </span>
-          <span className="hero-edition mono">
-            INDEPENDENT DEVELOPER <span> / </span> PORTFOLIO ’26
+          <span className={styles.edition}>
+            INDEPENDENT DEVELOPER <span>/</span> BASED IN KARACHI
           </span>
         </div>
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <div className="hero-intro">
-              Hello, I’m Noor.
-              <span className="intro-divider" />
-              <span className="role-text" aria-hidden="true">
+        <div className={styles.grid}>
+          <div className={styles.copy}>
+            <div className={styles.intro}>
+              <span>
+                Hello, I’m Noor<span className={styles.introDot}>.</span>
+              </span>
+              <span className={styles.introDivider} aria-hidden="true" />
+              <span className={`role-text ${styles.role}`} aria-hidden="true">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={role}
@@ -66,119 +68,91 @@ export function Hero({ linkedin }: { linkedin: string | null }) {
                 Full-Stack Developer, AI Engineer and AI Agent Developer
               </span>
             </div>
-            <h1 id="hero-heading">
+            <h1 id="hero-heading" className={styles.title}>
               I build digital
-              <br className="desktop-break" /> products, intelligent
-              <br className="desktop-break" /> systems &{" "}
-              <span className="gradient-text">
-                <span className="nowrap">AI-powered</span>
-                <br className="desktop-break" /> experiences.
-              </span>
+              <br />
+              products with
+              <br />
+              <span className={styles.accent}>intelligence.</span>
             </h1>
-            <p className="hero-description">
-              I’m a Full-Stack Developer focused on building modern web
-              applications, scalable digital solutions, and intelligent
-              AI-powered systems.
+            <p className={styles.description}>
+              Thoughtful web products, intelligent systems, and AI-powered
+              experiences. Designed around people. Built to work together.
             </p>
-            <div className="hero-actions">
+            <div className={styles.actions}>
               <a href="#work" className="button button-primary">
-                View my projects <ArrowDownRight size={19} aria-hidden="true" />
+                Explore my work <ArrowDownRight size={19} aria-hidden="true" />
               </a>
               <a href="#contact" className="button button-secondary">
-                Let’s work together{" "}
-                <ArrowUpRight size={18} aria-hidden="true" />
+                Let’s build together{" "}
+                <ArrowUpRight size={19} aria-hidden="true" />
               </a>
             </div>
-            <div className="hero-socials">
+            <div className={`hero-socials ${styles.socials}`}>
+              <span className={styles.socialLabel}>FIND ME ONLINE</span>
               <ExternalLink
                 href={site.github}
                 className="social-link"
                 label="Noor on GitHub"
+                showIcon={false}
               >
-                <BrandIcon name="github" size={17} />
-                GitHub
+                <BrandIcon name="github" size={18} /> GitHub{" "}
+                <ArrowUpRight size={13} aria-hidden="true" />
               </ExternalLink>
-              <span className="social-divider" />
-              {linkedin ? (
+              {linkedin && (
                 <ExternalLink
                   href={linkedin}
                   className="social-link"
                   label="Noor on LinkedIn"
+                  showIcon={false}
                 >
-                  <Linkedin size={17} />
-                  LinkedIn
+                  <Linkedin size={18} /> LinkedIn{" "}
+                  <ArrowUpRight size={13} aria-hidden="true" />
                 </ExternalLink>
-              ) : (
-                <span
-                  className="social-link social-unavailable"
-                  title="LinkedIn profile link has not been provided"
-                >
-                  <Linkedin size={17} aria-hidden="true" />
-                  LinkedIn<span className="soon-label">soon</span>
-                </span>
               )}
             </div>
           </div>
-          <div
-            className="hero-visual"
-            aria-label="A sculptural study of connected systems"
-          >
-            <div className="visual-coordinate mono" aria-hidden="true">
-              CREATIVITY × ENGINEERING
-            </div>
-            <div className="orbit orbit-one" aria-hidden="true" />
-            <div className="orbit orbit-two" aria-hidden="true" />
-            <div className="visual-cross cross-one" aria-hidden="true">
-              +
-            </div>
-            <div className="visual-cross cross-two" aria-hidden="true">
-              +
-            </div>
-            <div className="sculpture-wrap">
+          <div className={styles.portraitWrap}>
+            <figure className={styles.portraitCard}>
+              <div className={styles.portraitBackdrop} aria-hidden="true" />
               <Image
-                src={knot}
-                alt="Interwoven titanium ribbons, a sculptural expression of connected digital systems"
-                className="hero-sculpture"
+                src={portrait}
+                alt="Syeda Noor Fatima wearing a black hijab"
+                className={`hero-portrait ${styles.photo}`}
                 priority
-                sizes="(max-width: 600px) 95vw, (max-width: 1000px) 70vw, 48vw"
+                sizes="(max-width: 599px) 90vw, (max-width: 699px) 480px, (max-width: 1200px) 42vw, 475px"
                 quality={85}
               />
-            </div>
-            <div className="floating-note note-code">
-              <span className="note-icon">
-                <Code2 size={19} />
+              <figcaption className={styles.portraitCaption}>
+                <div>
+                  <span>DESIGN-MINDED. SYSTEMS-DRIVEN.</span>
+                  <strong>{site.name}</strong>
+                </div>
+                <span className={styles.captionMark} aria-hidden="true">
+                  n.
+                </span>
+              </figcaption>
+            </figure>
+            <div className={styles.portraitFootnote}>
+              <span>
+                <MapPin size={14} aria-hidden="true" /> Karachi, Pakistan
               </span>
-              <div>
-                <span className="note-caption">THE FOUNDATION</span>
-                <span>Clean code. Clear thinking.</span>
-              </div>
-            </div>
-            <div className="floating-note note-ai">
-              <span className="note-icon violet">
-                <Sparkles size={19} />
+              <span>
+                <span className={styles.openDot} /> Open to the world
               </span>
-              <div>
-                <span className="note-caption">THE POSSIBILITIES</span>
-                <span>Intelligence, with purpose.</span>
-              </div>
-            </div>
-            <div className="visual-caption mono" aria-hidden="true">
-              <span className="caption-dot" /> CONNECTED BY DESIGN{" "}
-              <span className="caption-line" /> 01 / ∞
             </div>
           </div>
         </div>
-        <div className="hero-bottom">
-          <a href="#about" className="scroll-indicator">
-            <span className="scroll-circle">
+        <div className={styles.bottom}>
+          <a href="#about" className={styles.scrollLink}>
+            <span>
               <ArrowDown size={17} aria-hidden="true" />
-            </span>
-            SCROLL TO EXPLORE
+            </span>{" "}
+            A LITTLE MORE ABOUT ME
           </a>
-          <span className="global-note">
-            <Globe2 size={15} aria-hidden="true" />
-            Based in Pakistan. Building for the world.
-            <ArrowRight size={14} aria-hidden="true" />
+          <span className={styles.globalNote}>
+            <Globe2 size={16} aria-hidden="true" /> Thoughtful work. Wherever
+            you are.
           </span>
         </div>
       </div>
@@ -191,34 +165,28 @@ export function TechStrip() {
     <div className="tech-strip">
       <div className="container tech-strip-inner">
         <span className="tech-strip-label mono">
-          A THOUGHTFUL STACK.
+          FROM INTERFACE
           <br />
-          <span>LIMITLESS POSSIBILITIES.</span>
+          <span>TO INTELLIGENCE.</span>
         </span>
         <div className="tech-strip-logos">
           <span>
-            <BrandIcon name="react" size={25} />
-            React
+            <BrandIcon name="react" size={25} /> React
           </span>
           <span>
-            <BrandIcon name="nextdotjs" size={24} />
-            Next.js
+            <BrandIcon name="nextdotjs" size={24} /> Next.js
           </span>
           <span>
-            <BrandIcon name="typescript" size={22} />
-            TypeScript
+            <BrandIcon name="typescript" size={22} /> TypeScript
           </span>
           <span>
-            <BrandIcon name="python" size={24} />
-            Python
+            <BrandIcon name="python" size={24} /> Python
           </span>
           <span>
-            <Sparkles size={24} />
-            OpenAI
+            <Sparkles size={24} aria-hidden="true" /> OpenAI
           </span>
           <span>
-            <BrandIcon name="postgresql" size={24} />
-            PostgreSQL
+            <BrandIcon name="postgresql" size={24} /> PostgreSQL
           </span>
         </div>
       </div>

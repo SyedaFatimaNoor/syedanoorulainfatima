@@ -1,0 +1,556 @@
+.hero {
+  position: relative;
+  padding-top: 126px;
+  background: radial-gradient(ellipse at 94% 32%, #25233225, transparent 55%);
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font:
+    10px ui-monospace,
+    monospace;
+  letter-spacing: 1.1px;
+  color: #b2d9c2;
+}
+
+.edition {
+  color: #9da1af;
+  font:
+    9px ui-monospace,
+    monospace;
+  letter-spacing: 1.2px;
+}
+
+.edition > span {
+  color: #585d6d;
+  margin-inline: 13px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.27fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 76px;
+  padding-block: 54px 48px;
+}
+
+.copy {
+  min-width: 0;
+  padding-bottom: 4px;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 13px;
+  color: #d3d5df;
+  margin-bottom: 25px;
+}
+
+.introDot {
+  color: var(--accent);
+}
+
+.introDivider {
+  height: 14px;
+  width: 1px;
+  background: #454653;
+}
+
+.role {
+  display: inline-flex;
+  align-items: center;
+  height: 23px;
+  min-width: 165px;
+  color: #b2adc9;
+}
+
+.title {
+  font-size: clamp(44px, 5.2vw, 76px);
+  font-weight: 500;
+  line-height: 1.07;
+  letter-spacing: -3.8px;
+}
+
+.accent {
+  color: #b5a7f4;
+}
+
+.description {
+  color: #a9aeba;
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 440px;
+  margin-top: 28px;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.actions > a {
+  min-height: 51px;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 32px;
+}
+
+.socialLabel {
+  font:
+    8px ui-monospace,
+    monospace;
+  letter-spacing: 1.3px;
+  color: #9a9eae;
+  padding-right: 18px;
+  border-right: 1px solid #343744;
+}
+
+.socials :global(.social-link) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #c2c5d1;
+  min-height: 40px;
+  transition: color 0.2s;
+}
+
+.socials :global(.social-link:hover) {
+  color: #c6b9ff;
+}
+
+.portraitWrap {
+  width: 100%;
+  max-width: 475px;
+  justify-self: end;
+}
+
+.portraitCard {
+  margin: 0;
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 8 / 9;
+  border: 1px solid #55525c;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #34333b;
+  box-shadow: 0 24px 65px #00000030;
+}
+
+.portraitBackdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 28% 20%,
+    #78717d,
+    #44404b 54%,
+    #2c2b34
+  );
+}
+
+.portraitCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid #ffffff0c;
+  border-radius: inherit;
+  z-index: 3;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.portraitCaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  position: absolute;
+  inset: auto 0 0;
+  padding: 70px 26px 25px;
+  background: linear-gradient(transparent, #14131be6);
+}
+
+.portraitCaption > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.portraitCaption > div > span {
+  font:
+    8px ui-monospace,
+    monospace;
+  color: #d1ccd9;
+  letter-spacing: 1.15px;
+}
+
+.portraitCaption strong {
+  font:
+    500 24px var(--font-space),
+    sans-serif;
+  letter-spacing: -0.7px;
+  color: #f9f6fa;
+}
+
+.captionMark {
+  font:
+    500 40px var(--font-space),
+    sans-serif;
+  line-height: 1;
+  letter-spacing: -3px;
+  color: #e7dcf3;
+}
+
+.portraitFootnote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 1px 0;
+  color: #b4b1c0;
+  font-size: 10px;
+}
+
+.portraitFootnote > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.openDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #b2a6da;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-block: 23px;
+  border-top: 1px solid #2c2e3b;
+}
+
+.scrollLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  font:
+    9px ui-monospace,
+    monospace;
+  letter-spacing: 1.3px;
+  color: #babdca;
+}
+
+.scrollLink > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33px;
+  height: 33px;
+  border: 1px solid #454653;
+  border-radius: 50%;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+
+.scrollLink:hover > span {
+  transform: translateY(3px);
+  border-color: #b1a2de;
+}
+
+.globalNote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #a1a5b5;
+}
+
+@media (min-width: 1600px) {
+  .grid {
+    padding-block: 64px 58px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    gap: 40px;
+  }
+  .title {
+    letter-spacing: -2.7px;
+  }
+  .actions {
+    gap: 10px;
+  }
+  .actions > a {
+    font-size: 12px;
+    padding-inline: 16px;
+    gap: 10px;
+  }
+  .socials {
+    gap: 17px;
+  }
+  .socialLabel {
+    padding-right: 14px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    gap: 32px;
+    padding-block: 42px;
+  }
+  .intro {
+    font-size: 11px;
+    gap: 10px;
+  }
+  .role {
+    min-width: 144px;
+  }
+  .description {
+    font-size: 14px;
+    margin-top: 23px;
+  }
+  .socialLabel {
+    display: none;
+  }
+  .portraitCaption {
+    padding-inline: 21px;
+    padding-bottom: 21px;
+  }
+  .portraitCaption strong {
+    font-size: 21px;
+  }
+  .portraitCaption > div > span {
+    font-size: 7px;
+    letter-spacing: 0.8px;
+  }
+  .portraitFootnote {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 849px) {
+  .hero {
+    padding-top: 112px;
+  }
+  .edition {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+}
+
+@media (max-width: 699px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .copy {
+    max-width: 620px;
+  }
+  .title {
+    font-size: clamp(48px, 8.7vw, 70px);
+    letter-spacing: -3px;
+  }
+  .intro {
+    font-size: 13px;
+    margin-bottom: 23px;
+  }
+  .role {
+    min-width: 165px;
+  }
+  .description {
+    font-size: 15px;
+    max-width: 490px;
+  }
+  .actions > a {
+    font-size: 13px;
+    padding-inline: 22px;
+    gap: 14px;
+  }
+  .socialLabel {
+    display: block;
+  }
+  .socials {
+    margin-top: 22px;
+    gap: 22px;
+  }
+  .portraitWrap {
+    max-width: 480px;
+    justify-self: center;
+  }
+  .portraitCaption strong {
+    font-size: 24px;
+  }
+  .portraitCaption > div > span {
+    font-size: 8px;
+    letter-spacing: 1.1px;
+  }
+  .portraitFootnote {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 599px) {
+  .hero {
+    padding-top: 99px;
+  }
+  .edition {
+    display: none;
+  }
+  .availability {
+    font-size: 9px;
+  }
+  .grid {
+    gap: 0;
+    padding-block: 33px 27px;
+  }
+  /* Keep the portrait prominent on small screens. The keyboard order of
+     the two CTAs and the social links stays unchanged. */
+  .copy {
+    display: contents;
+  }
+  .intro {
+    order: 1;
+    font-size: 11px;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .role {
+    min-width: 144px;
+  }
+  .title {
+    order: 2;
+    font-size: clamp(42px, 11.2vw, 62px);
+    letter-spacing: -2.5px;
+    line-height: 1.07;
+  }
+  .description {
+    order: 5;
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 440px;
+  }
+  .actions {
+    order: 3;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 24px;
+  }
+  .actions > a {
+    font-size: 11px;
+    min-height: 49px;
+    padding-inline: 10px;
+    gap: 7px;
+  }
+  .actions svg {
+    width: 16px;
+  }
+  .socials {
+    order: 6;
+    margin-top: 16px;
+    gap: 18px;
+  }
+  .socialLabel {
+    font-size: 7px;
+    padding-right: 12px;
+    letter-spacing: 0.8px;
+  }
+  .socials :global(.social-link) {
+    font-size: 11px;
+    gap: 6px;
+  }
+  .portraitWrap {
+    order: 4;
+    margin-top: 30px;
+    max-width: 420px;
+  }
+  .portraitCard {
+    border-radius: 15px;
+  }
+  .portraitCaption strong {
+    font-size: 23px;
+  }
+  .portraitCaption > div > span {
+    font-size: 7px;
+    letter-spacing: 0.7px;
+  }
+  .portraitFootnote {
+    font-size: 10px;
+    padding-top: 14px;
+  }
+  .bottom {
+    padding-block: 18px;
+  }
+  .scrollLink {
+    font-size: 8px;
+    gap: 11px;
+    letter-spacing: 1px;
+    min-height: 44px;
+  }
+  .globalNote {
+    display: none;
+  }
+}
+
+@media (max-width: 359px) {
+  .intro {
+    font-size: 10px;
+    gap: 8px;
+  }
+  .title {
+    font-size: 39px;
+    letter-spacing: -2px;
+  }
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .actions > a {
+    font-size: 12px;
+    justify-content: space-between;
+    padding-inline: 18px;
+  }
+  .socialLabel {
+    display: none;
+  }
+  .portraitCaption strong {
+    font-size: 21px;
+  }
+  .portraitCaption > div > span {
+    font-size: 6px;
+  }
+}
