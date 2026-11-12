@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { projects } from "../../src/lib/projects";
-import { additionalProjects } from "../../src/lib/additional-projects";
 
 async function fillEnquiry(page: import("@playwright/test").Page) {
   await page.getByLabel("Your name", { exact: false }).fill("Alex Example");
@@ -76,6 +75,53 @@ test("complete homepage: sections, verified links, images and no browser errors"
       .toBe(true);
   }
   expect(errors).toEqual([]);
+});
+
+test("selected portrait loads locally with top-aligned framing and keyboard hero actions", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const portrait = page.getByRole("img", {
+    name: "Syeda Noor Fatima wearing a black hijab",
+  });
+  await expect(portrait).toHaveCount(1);
+  await expect(portrait).toHaveAttribute("width", "960");
+  await expect(portrait).toHaveAttribute("height", "1440");
+  await expect(portrait).toHaveCSS("object-fit", "cover");
+  await expect(portrait).toHaveCSS("object-position", "50% 0%");
+  expect(await portrait.getAttribute("loading")).not.toBe("lazy");
+  await expect
+    .poll(() =>
+      portrait.evaluate((element) => {
+        const image = element as HTMLImageElement;
+        return image.complete && image.naturalWidth > 0;
+      }),
+    )
+    .toBe(true);
+  const source = await portrait.evaluate(
+    (element) => (element as HTMLImageElement).currentSrc,
+  );
+  expect(new URL(source).origin).toBe(new URL(page.url()).origin);
+  expect(source).toContain("noor-portrait");
+  const dimensions = await portrait.boundingBox();
+  expect(dimensions).not.toBeNull();
+  expect(dimensions!.width).toBeGreaterThan(200);
+  // The 8:9 frame stays stable; top alignment preserves the head and hijab
+  // while the taller source's lower jacket extends beyond the visible crop.
+  expect(dimensions!.height / dimensions!.width).toBeCloseTo(9 / 8, 1);
+  await expect(page.locator(".portrait-hero figcaption")).toContainText(
+    "Syeda Noor Fatima",
+  );
+  await expect(page.locator(".hero-sculpture")).toHaveCount(0);
+  for (const [label, destination] of [
+    ["Explore my work", "work"],
+    ["Let’s build together", "contact"],
+  ]) {
+    await page.getByRole("link", { name: label, exact: true }).focus();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(new RegExp(`#${destination}$`));
+    await expect(page.locator(`#${destination}`)).toBeInViewport();
+  }
 });
 
 test("confirmed LinkedIn and WhatsApp contacts are linked without setup or tracking", async ({
@@ -350,7 +396,9 @@ test("WCAG A/AA automated checks: home, enquiry dialog, project and privacy", as
   expect(results.violations).toEqual([]);
 });
 
-for (const project of additionalProjects) {
+for (const project of projects.filter(
+  (project) => project.slug !== "prospectai-studio",
+)) {
   test(`${project.name}: accessible detail page and distinct preview without browser errors`, async ({
     page,
   }) => {
@@ -455,6 +503,15 @@ test("progressive enhancement keeps projects and email available without JavaScr
   await page.goto(process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000");
   await expect(page.locator("h1")).toBeVisible();
   await expect(page.locator(".role-text")).toHaveText("Full-Stack Developer");
+  const portrait = page.getByRole("img", {
+    name: "Syeda Noor Fatima wearing a black hijab",
+  });
+  await expect(portrait).toBeVisible();
+  await expect
+    .poll(() =>
+      portrait.evaluate((image) => (image as HTMLImageElement).naturalWidth),
+    )
+    .toBeGreaterThan(0);
   await expect(page.locator(".project-card")).toHaveCount(projects.length);
   await expect(page.locator(".project-card").first()).toBeVisible();
   await expect(page.locator(".about-copy")).toBeVisible();

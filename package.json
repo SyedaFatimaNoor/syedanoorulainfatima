@@ -16,7 +16,8 @@
     "test:e2e": "playwright test",
     "format": "prettier --write src tests scripts docs *.ts *.mjs *.json *.md",
     "format:check": "prettier --check src tests scripts docs *.ts *.mjs *.json *.md",
-    "capture": "tsx scripts/inspect-site.mjs"
+    "capture": "tsx scripts/inspect-site.mjs",
+    "generate:social": "tsx scripts/generate-social-image.ts"
   },
   "dependencies": {
     "framer-motion": "14.12.0",

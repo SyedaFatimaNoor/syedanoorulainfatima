@@ -47,8 +47,9 @@ export function Contact({
         </Reveal>
         <div className="contact-grid">
           <Reveal className="contact-copy">
-            <span className="contact-star" aria-hidden="true">
-              ✳
+            <span className="contact-intro mono">
+              <span className="status-dot" aria-hidden="true" /> LET’S TALK
+              ABOUT YOUR PROJECT
             </span>
             <h2 id="contact-heading">
               Have an idea?

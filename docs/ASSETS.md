@@ -1,14 +1,22 @@
 # Asset provenance
 
-## Original portfolio imagery
+## Owner-selected portrait
 
-- `public/images/intelligence-knot.webp`: AI-generated titanium/ribbon sculpture, created for this portfolio. Decorative connected-systems visual, not a portrait or a claim about a physical product. Optimised to approximately 80 KB.
+- `public/images/noor-portrait.webp`: the **latest portrait selected and supplied by the owner**, wearing a black hijab and blazer. The fourth upload (`image-4.png`, 1024 × 1536) replaces the earlier locally edited third-photo selection at the owner’s request.
+- Used as supplied, with **resizing and WebP compression only**. Its existing transparency is preserved. No additional face replacement, facial reshaping, skin smoothing, colour correction, or generative editing was applied during this integration. This describes our processing, not the image’s creation history before upload.
+- The optimised transparent WebP is **960 × 1440, approximately 94 KB**, with no EXIF/location metadata. Only this optimised asset is published; the raw upload is not added to the repository.
+- The hero uses a static Next.js image import, intrinsic dimensions, priority loading, responsive sizes, descriptive alternative text, and a stable 8:9 frame. `object-fit: cover` with `object-position: center top` provides an upper-body crop without stretching or cropping the face, hijab, or hand. The lower jacket extends beyond the frame; the full optimised source remains intact.
+- The neutral background and bottom caption are CSS. The former top overlay label was removed to leave the taller portrait unobstructed. On small screens the portrait remains directly after the headline and primary actions.
+- `src/app/opengraph-image.png`: a **1200 × 630** social-preview composition using the same selected portrait, top-aligned framing, local fonts, and editorial typography. Regenerate it with `npm run generate:social`; no running server, external imagery, or image-generation service is needed. Its accessible description is in `src/app/opengraph-image.alt.txt`.
+- The former abstract sculpture and its unused CSS have been removed from the hero and social card.
+
+## Original project artwork and identity
+
 - `public/images/projects/fragrance-art.webp`: AI-generated fragrance-inspired editorial artwork. Not an actual product photograph or a screenshot. Labelled as artwork in the card and disclosed on the project detail page.
 - `public/images/projects/jewelry-art.webp`: AI-generated jewelry-inspired editorial artwork. Not an actual catalogue photograph or screenshot. Labelled/disclosed similarly.
-- `src/app/opengraph-image.png`: custom social-preview composition using the portfolio sculpture and brand typography.
 - `src/app/icon.svg` and `src/app/apple-icon.png`: original simple “n.” monogram.
 
-Source PNG generation intermediates were converted to WebP and removed. No large generated originals are retained in Git.
+Project-art generation intermediates were converted to WebP and removed. No large generated originals are retained in Git.
 
 ## Assets from the user's public projects
 

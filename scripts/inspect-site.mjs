@@ -1,7 +1,7 @@
 import { chromium as playwright } from "@playwright/test";
 import { browserLaunchOptions } from "./browser.ts";
 import { mkdir } from "node:fs/promises";
-import { additionalProjects } from "../src/lib/additional-projects.ts";
+import { projects } from "../src/lib/projects.ts";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 
@@ -44,6 +44,10 @@ try {
     await page.goto(baseURL, { waitUntil: "networkidle", timeout: 120000 });
     await page.screenshot({ path: `.cache/screenshots/${name}-hero.png` });
 
+    await page.locator(".portrait-hero figure").screenshot({
+      path: `.cache/screenshots/${name}-portrait.png`,
+    });
+
     // Capture real viewport-sized sections, not one enormous rendering surface.
     // Tall mobile pages can exceed a headless GPU's texture limit and produce
     // repeated tiles in fullPage screenshots despite a correct, single DOM.
@@ -70,7 +74,7 @@ try {
 
     await checkDimensions(page, name, "/", width);
 
-    for (const project of additionalProjects) {
+    for (const project of projects) {
       await page.locator(`[data-project="${project.slug}"]`).evaluate((card) =>
         window.scrollTo({
           top: card.getBoundingClientRect().top + window.scrollY - 85,
@@ -81,7 +85,7 @@ try {
         path: `.cache/screenshots/${name}-card-${project.slug}.png`,
       });
     }
-    for (const project of additionalProjects) {
+    for (const project of projects) {
       const path = `/projects/${project.slug}`;
       await page.goto(new URL(path, baseURL).href, {
         waitUntil: "networkidle",

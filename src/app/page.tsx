@@ -27,7 +27,12 @@ export default function Home() {
     jobTitle: ["Full-Stack Developer", "AI Engineer", "AI Agent Developer"],
     description: site.description,
     email: site.email,
-    ...(getSiteUrl() ? { url: getSiteUrl() } : {}),
+    ...(getSiteUrl()
+      ? {
+          url: getSiteUrl(),
+          image: `${getSiteUrl()}/images/noor-portrait.webp`,
+        }
+      : {}),
     sameAs: [site.github, ...(channels.linkedin ? [channels.linkedin] : [])],
     knowsAbout: [
       "Full-stack development",
