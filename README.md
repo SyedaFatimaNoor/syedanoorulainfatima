@@ -28,27 +28,29 @@ Stop the development server before building: development and production share th
 - Responsive desktop/tablet/mobile layouts; local variable fonts; optimised local imagery.
 - Three rotating professional roles; subtle reveal and preview motion; reduced-motion support.
 - Active section navigation, keyboard-accessible mobile modal menu, skip link, visible focus, and back-to-top.
-- All five supplied projects, working demo URLs, two verified public source links, category filters, and independently shareable detail pages.
+- All twelve supplied projects, distinct large presentations, three verified public source links, category filters, and independently shareable detail pages. SEO Pilot retains its supplied URL with an explicit unverified-demo notice.
 - Native, keyboard-operable skill disclosures explaining how each category is applied.
 - Validated enquiry form, real email drafts, copy controls, accessible result dialogs, and optional server-side email delivery.
-- Honest missing-contact placeholders, a privacy page, metadata, JSON-LD, social image, icons, robots, optional canonical URLs and sitemap, branded navigation-loading feedback, error, and 404 states.
+- Owner-confirmed LinkedIn and WhatsApp links work without setup, alongside the public email and GitHub profile. Includes privacy, metadata, JSON-LD, social imagery, icons, robots, optional canonical URLs and sitemap, branded navigation-loading feedback, error, and 404 states.
 - Server-rendered content that stays visible without JavaScript; animation is an enhancement, not a prerequisite for reading the work.
 - Unit/API tests, responsive browser tests, automated axe accessibility checks, and a quality-check workflow.
 
 ## Content and contact configuration
 
-The name, verified public email, and source profile are in `src/lib/site.ts`. Project descriptions, verified technology tags, public repository links, scope limitations, and visual disclosures live in `src/lib/projects.ts`.
+The name, public email, GitHub profile, and owner-confirmed contact channels are in `src/lib/site.ts`. LinkedIn defaults to <https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/> (without tracking parameters); WhatsApp displays **+92 339 1451101** and opens <https://wa.me/923391451101>. Unset or previously blank environment variables use these defaults.
+
+Project descriptions, technology evidence, public source links, scope limitations, and visual disclosures live in `src/lib/projects.ts` and `src/lib/additional-projects.ts`. Featured layouts and verification notices are data-driven. A pending review deliberately omits unverified case-study sections.
 
 Copy `.env.example` to `.env.local` only if configuration is needed. Do not commit live credentials.
 
-| Variable                      | Purpose                                                                                                             |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`        | Actual production HTTPS origin. Enables canonical URLs and a real sitemap. Omitted until a real domain is supplied. |
-| `NEXT_PUBLIC_LINKEDIN_URL`    | Your confirmed `https://www.linkedin.com/in/...` profile. Otherwise displayed as “Profile to be added”.             |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Confirmed international number, including country code. Otherwise displayed as “Number to be added”.                |
-| `RESEND_API_KEY`              | Optional server-only email provider credential.                                                                     |
-| `CONTACT_FROM_EMAIL`          | Optional sender on a domain verified in Resend. Required together with the key.                                     |
-| `CONTACT_TO_EMAIL`            | Optional server-only recipient override; defaults to the public email verified from your GitHub profile.            |
+| Variable                      | Purpose                                                                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`        | Actual production HTTPS origin. Enables canonical URLs and a real sitemap. Omitted until a real domain is supplied.            |
+| `NEXT_PUBLIC_LINKEDIN_URL`    | Optional HTTPS LinkedIn profile override. Unset/blank uses the owner-confirmed profile; invalid nonempty values stay unlinked. |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Optional international-number override. Unset/blank uses `923391451101`; invalid nonempty values stay unlinked.                |
+| `RESEND_API_KEY`              | Optional server-only email provider credential.                                                                                |
+| `CONTACT_FROM_EMAIL`          | Optional sender on a domain verified in Resend. Required together with the key.                                                |
+| `CONTACT_TO_EMAIL`            | Optional server-only recipient override; defaults to the public email verified from your GitHub profile.                       |
 
 **Rebuild/redeploy after configuration changes.** Homepage and privacy copy are pre-rendered from the build environment, including whether direct email delivery is configured.
 
@@ -61,7 +63,7 @@ With no email provider configured, the form:
 3. Opens a dialog explicitly stating that **nothing has been sent**.
 4. Lets the visitor open their email app or copy the full enquiry. They must send the message themselves.
 
-There is no enquiry database and no silent “success” state. Copy failure offers a selectable text fallback. Without JavaScript, direct email and project links still work, while the interactive form is hidden to avoid an accidental GET submission containing personal details.
+There is no enquiry database and no silent “success” state. Copy failure offers a selectable text fallback. Without JavaScript, direct email, LinkedIn, WhatsApp, and project links still work, while the interactive form is hidden to avoid an accidental GET submission containing personal details.
 
 With both email-provider variables configured, the server sends a plain-text email through Resend, with the visitor as `reply_to` and the recipient controlled by the server. Only a successful provider response with an ID returns “accepted”. Provider errors preserve the form and offer direct email. Acceptance is not represented as guaranteed inbox delivery.
 
@@ -79,9 +81,11 @@ With both email-provider variables configured, the server sends a plain-text ema
 
 ## Project honesty
 
-All five supplied sites were inspected. ProspectAI Studio and the deployment-linked Avion repository were also inspected. The other project repositories are private and were inaccessible to the configured GitHub integration; descriptions are deliberately limited to the deployed interfaces and confirmed technologies.
+The original five and seven additional owner-supplied destinations were reviewed: eleven homepages were readable. **SEO Pilot returned HTTP 500 to the page-review tool on both attempts.** Its deployment metadata confirms Vite, but its UI and private source could not be inspected. It is included with a clear “Demo not verified” label and no invented feature walkthrough. This does not assert that every visitor will see the same retrieval error.
 
-Project previews are **labelled interface studies or AI-generated project artwork**, not fabricated screenshots, real leads, or product photographs. Each detail page explains the preview and the scope of verification. See [project research](docs/PROJECT-RESEARCH.md) and [asset provenance](docs/ASSETS.md).
+ProspectAI Studio, Avion, and Physical AI & Humanoid Robotics have verified public repository mappings. The other sources were private/inaccessible or had no confirmed public mapping, so they are not linked as public code. Stack tags distinguish confirmed frameworks/dependencies from untested integrations; marketing numbers and claims are not adopted as personal achievements.
+
+Project previews are **labelled interface studies, original vector compositions, or disclosed AI-generated artwork**, not fabricated screenshots, real leads, or product photographs. SEO Pilot uses a typographic marker rather than unverified UI. Each detail page explains the preview and the scope of verification. See [project research](docs/PROJECT-RESEARCH.md) and [asset provenance](docs/ASSETS.md).
 
 ## Quality checks
 
@@ -95,9 +99,9 @@ npm run format:check
 npm audit
 ```
 
-Browser tests run at **1440 × 1000**, **768 × 1024**, and **390 × 844**, with an additional width sweep from **320 to 1920px**. They check navigation, focus trapping, reduced-motion rendering, filtering, disclosures, validation, real draft preparation, clipboard behaviour, provider UI states, all project routes, privacy, not-found behaviour, image loading, horizontal overflow, browser errors, and WCAG A/AA rules through axe. No-JavaScript rendering and pending-navigation feedback are also tested at all three sizes. Automated tests do not replace human assistive-technology testing.
+Browser tests run at **1440 × 1000**, **768 × 1024**, and **390 × 844**, with an additional width sweep from **320 to 1920px**. They check navigation, focus trapping, reduced-motion rendering, filtering, disclosures, validation, real draft preparation, clipboard behaviour, provider UI states, all project routes, privacy, not-found behaviour, image loading, horizontal overflow, browser errors, and WCAG A/AA rules through axe. All twelve project routes participate in the width sweep. Confirmed contact targets, distinct previews, new-case accessibility, verification notices, no-JavaScript rendering, and pending-navigation feedback are also tested at all three primary sizes. Automated tests do not replace human assistive-technology testing.
 
-The completed production-build run passed **18 unit/API tests and 29 browser tests**, with zero reported dependency vulnerabilities. See the [quality review](docs/QUALITY-REVIEW.md) for the exact checks, intentional duplicate-test skips, verification boundaries, and launch configuration. `npm run capture` saves viewport-sized hero, section, and form images to ignored `.cache/screenshots/` for visual review.
+See the [quality review](docs/QUALITY-REVIEW.md) for the completed production-build checks, intentional duplicate-test skips, verification boundaries, and launch configuration. `npm run capture` saves viewport-sized hero, section, form, and additional-project card/case/preview images to ignored `.cache/screenshots/` for visual review. Run browser tests and capture sequentially on a fresh workspace so they do not extract the bundled Chromium binary at the same time.
 
 To test an already-running production build:
 
@@ -117,6 +121,13 @@ A patched `minimatch` version is scoped to the TypeScript ESLint parser through 
 - `/projects/essence-of-dream`
 - `/projects/fashion-jewelry`
 - `/projects/avion`
+- `/projects/micro-credible`
+- `/projects/jewels-of-joy`
+- `/projects/nr-collection`
+- `/projects/nkr-agent`
+- `/projects/physical-ai-humanoid-robotics`
+- `/projects/seo-pilot`
+- `/projects/noor-cv-builder`
 - `/privacy`
 - `POST /api/contact`
 - `/robots.txt`, `/sitemap.xml`
@@ -124,11 +135,11 @@ A patched `minimatch` version is scoped to the TypeScript ESLint parser through 
 ## Before a public launch
 
 1. Confirm the displayed name and public email.
-2. Supply your real LinkedIn and WhatsApp details if you want those channels enabled.
+2. Review the confirmed contact details; no LinkedIn/WhatsApp setup is required. If changing public contact overrides, rebuild.
 3. Set the actual production origin and redeploy; an empty origin deliberately produces no invented sitemap URLs.
 4. Keep the default draft flow, or configure and test a verified email sender.
 5. Review the privacy note for the actual host, mailbox, jurisdiction, and retention practices.
 6. Configure distributed rate limiting/edge abuse protection where appropriate.
-7. Confirm external project destinations again, since other deployments can change independently.
+7. Confirm external project destinations again, especially SEO Pilot, since other deployments can change independently. Update its pending-review note only after verification.
 
-The app is deployment-ready for a Next.js-compatible Node host or Vercel. No production deployment, domain purchase, repository push, or change to your existing cloud projects was performed as part of this build.
+The app can run on a Next.js-compatible Node host or Vercel. This content/contact update does not deploy, merge, buy a domain, or change any existing cloud project. Work stays on the current Arena branch until a repository publishing action is requested.

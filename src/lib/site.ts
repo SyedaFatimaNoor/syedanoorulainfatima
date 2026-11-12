@@ -5,18 +5,22 @@ export const site = {
   role: "Full-Stack Developer | AI Engineer | AI Agent Developer",
   email: "syedanoorfatima610@gmail.com",
   github: "https://github.com/SyedaFatimaNoor",
+  linkedin: "https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/",
+  whatsappNumber: "923391451101",
+  whatsappDisplay: "+92 339 1451101",
   location: "Karachi, Pakistan",
   description:
     "Full-stack development, thoughtful web experiences, and intelligent AI-powered systems. Explore the work of Syeda Noor Fatima, a developer based in Karachi and open to international collaborations.",
 } as const;
 
-// Only explicitly supplied public URLs are displayed. Missing channels are honest placeholders.
+// Owner-confirmed details work with unset or previously blank configuration.
+// Invalid nonempty overrides stay unlinked rather than producing an unsafe URL.
 export function getContactChannels() {
-  const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim();
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(
-    /[\s+()-]/g,
-    "",
-  );
+  const linkedin =
+    process.env.NEXT_PUBLIC_LINKEDIN_URL?.trim() || site.linkedin;
+  const whatsapp = (
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || site.whatsappNumber
+  ).replace(/[\s+()-]/g, "");
   return {
     linkedin:
       linkedin &&

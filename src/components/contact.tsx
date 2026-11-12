@@ -107,6 +107,7 @@ export function Contact({
                     Let’s connect
                     <ArrowUpRight size={16} aria-hidden="true" />
                   </span>
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : (
                 <div className="channel-placeholder">
@@ -124,9 +125,12 @@ export function Contact({
                     WhatsApp
                   </span>
                   <span>
-                    Start a conversation
+                    {whatsapp === `https://wa.me/${site.whatsappNumber}`
+                      ? site.whatsappDisplay
+                      : "Start a conversation"}
                     <ArrowUpRight size={16} aria-hidden="true" />
                   </span>
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : (
                 <div className="channel-placeholder">

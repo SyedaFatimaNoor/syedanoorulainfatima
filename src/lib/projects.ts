@@ -1,3 +1,5 @@
+import { additionalProjects } from "./additional-projects";
+
 export type ProjectCategory = "AI & systems" | "Web experiences";
 
 export interface Project {
@@ -5,9 +7,12 @@ export interface Project {
   name: string;
   kind: string;
   category: ProjectCategory;
+  featured?: boolean;
+  demoStatus?: "unverified";
   description: string;
-  problem: string;
-  approach: string;
+  // Unreviewed projects intentionally omit a case narrative rather than invent one.
+  problem?: string;
+  approach?: string;
   technologies: string[];
   capabilities: { title: string; description: string }[];
   liveUrl: string;
@@ -24,6 +29,7 @@ export const projects: Project[] = [
     name: "ProspectAI Studio",
     kind: "Evidence-first business discovery",
     category: "AI & systems",
+    featured: true,
     description:
       "A connected workspace for business research, evidence review, website concepts, and human-reviewed outreach drafts.",
     problem:
@@ -202,6 +208,7 @@ export const projects: Project[] = [
     previewNote:
       "An interface study using the original chair image from the public project repository and text from the deployed homepage. Not a screenshot.",
   },
+  ...additionalProjects,
 ];
 
 export const getProject = (slug: string) =>
