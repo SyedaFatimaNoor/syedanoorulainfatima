@@ -67,13 +67,20 @@ export default async function ProjectPage({
           </div>
           <div className="case-header-description">
             <p>{project.description}</p>
+            {project.demoStatus === "unverified" && (
+              <p className="project-demo-note">
+                <span>Demo not verified</span> Feature review is pending.
+              </p>
+            )}
             <div className="case-header-links">
               <ExternalLink
                 href={project.liveUrl}
                 className="button button-primary"
-                label={`${project.name} live demo`}
+                label={`${project.name} ${project.demoStatus === "unverified" ? "supplied demo (not verified)" : "live demo"}`}
               >
-                Visit live project
+                {project.demoStatus === "unverified"
+                  ? "Open supplied demo"
+                  : "Visit live project"}
               </ExternalLink>
               {project.githubUrl ? (
                 <ExternalLink
@@ -117,35 +124,39 @@ export default async function ProjectPage({
             </dd>
           </div>
         </dl>
-        <div className="case-story">
-          <Reveal>
-            <span className="project-kicker">01 / THE CONTEXT</span>
-            <h2>A problem worth solving.</h2>
-            <p>{project.problem}</p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <span className="project-kicker">02 / THE APPROACH</span>
-            <h2>A considered response.</h2>
-            <p>{project.approach}</p>
-          </Reveal>
-        </div>
-        <section
-          className="case-capabilities"
-          aria-labelledby="capabilities-heading"
-        >
-          <h2 id="capabilities-heading">Inside the experience.</h2>
-          <div className="capability-grid">
-            {project.capabilities.map((capability, index) => (
-              <Reveal key={capability.title} delay={index * 0.05}>
-                <article className="capability-card">
-                  <span>0{index + 1}</span>
-                  <h3>{capability.title}</h3>
-                  <p>{capability.description}</p>
-                </article>
-              </Reveal>
-            ))}
+        {project.problem && project.approach && (
+          <div className="case-story">
+            <Reveal>
+              <span className="project-kicker">01 / THE CONTEXT</span>
+              <h2>A problem worth solving.</h2>
+              <p>{project.problem}</p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <span className="project-kicker">02 / THE APPROACH</span>
+              <h2>A considered response.</h2>
+              <p>{project.approach}</p>
+            </Reveal>
           </div>
-        </section>
+        )}
+        {project.capabilities.length > 0 && (
+          <section
+            className="case-capabilities"
+            aria-labelledby="capabilities-heading"
+          >
+            <h2 id="capabilities-heading">Inside the experience.</h2>
+            <div className="capability-grid">
+              {project.capabilities.map((capability, index) => (
+                <Reveal key={capability.title} delay={index * 0.05}>
+                  <article className="capability-card">
+                    <span>0{index + 1}</span>
+                    <h3>{capability.title}</h3>
+                    <p>{capability.description}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
         <aside className="project-scope">
           <h2>A clear picture of the project.</h2>
           <p>{project.sourceNote}</p>

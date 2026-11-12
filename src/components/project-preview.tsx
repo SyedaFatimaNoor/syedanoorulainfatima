@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ProjectStudy } from "./project-studies";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -40,6 +41,7 @@ export function ProjectPreview({
   if (slug === "prospectai-studio")
     return (
       <div
+        data-preview={slug}
         className={`project-preview prospect-preview ${large ? "large-preview" : ""}`}
         aria-hidden="true"
       >
@@ -131,6 +133,7 @@ export function ProjectPreview({
   if (slug === "pinease")
     return (
       <div
+        data-preview={slug}
         className={`project-preview pinease-preview ${large ? "large-preview" : ""}`}
         aria-hidden="true"
       >
@@ -178,6 +181,7 @@ export function ProjectPreview({
   if (slug === "essence-of-dream")
     return (
       <div
+        data-preview={slug}
         className={`project-preview fragrance-preview ${large ? "large-preview" : ""}`}
         aria-hidden="true"
       >
@@ -219,6 +223,7 @@ export function ProjectPreview({
   if (slug === "fashion-jewelry")
     return (
       <div
+        data-preview={slug}
         className={`project-preview jewelry-preview ${large ? "large-preview" : ""}`}
         aria-hidden="true"
       >
@@ -257,8 +262,11 @@ export function ProjectPreview({
         <span className="preview-plus">+</span>
       </div>
     );
+  if (slug !== "avion") return <ProjectStudy slug={slug} large={large} />;
+
   return (
     <div
+      data-preview={slug}
       className={`project-preview avion-preview ${large ? "large-preview" : ""}`}
       aria-hidden="true"
     >

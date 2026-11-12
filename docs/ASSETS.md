@@ -17,11 +17,25 @@ Source PNG generation intermediates were converted to WebP and removed. No large
 
 All browser previews are hand-built HTML/CSS **interface studies**, not screenshots. Their previews intentionally contain no fabricated personal achievements, traffic, revenue, leads, or performance metrics.
 
+## Additional project studies
+
+`src/components/project-studies.tsx` and its CSS module provide seven distinct, locally rendered illustrations. No new image downloads, external embeds, image-generation calls, or dependencies were needed.
+
+- **MicroCredible:** an editorial practice workspace using challenge topics observed on the public catalogue. No issued credential or assessment score is depicted.
+- **Jewels of Joy:** original SVG jewellery/pearl line art and a warm editorial layout. Not a photograph of actual catalogue products.
+- **Noor's Collection:** original CSS textile folds and an SVG motif, using the public boutique name and “Elegance Redefined” headline. Not a product photograph.
+- **NKR Agent:** an original URL-entry/review-scope study. No fabricated audit report, score, ranking, or client data.
+- **Physical AI & Humanoid Robotics:** an original technical schematic and textbook layout. Not physical hardware, a live robot deployment, or generated chatbot output.
+- **SEO Pilot:** a typographic project marker only. No unverified product UI or feature is represented.
+- **Noor CV Builder:** a document-layout study using explicit name/role placeholders and neutral text lines. No invented employment or qualifications.
+
+Studies are decorative and hidden from screen readers; their surrounding project links have descriptive accessible names. They contain no focusable faux controls. Each case page has a readable provenance disclosure. Unknown preview slugs use a neutral fallback, never another project's artwork.
+
 ## Fonts and icons
 
 - Manrope variable Latin subset, locally served via `next/font/local`. SIL Open Font License included at `src/assets/fonts/MANROPE-LICENSE.txt`.
 - Space Grotesk variable Latin subset, locally served via `next/font/local`. SIL Open Font License included at `src/assets/fonts/SPACE-GROTESK-LICENSE.txt`.
 - Technology brand paths in `src/lib/brand-icons.ts` are extracted from **Simple Icons**, distributed under CC0. Brand trademarks remain the property of their owners; use indicates technology identification, not endorsement.
-- Interface icons use **Lucide**, ISC licensed. GitHub uses the Simple Icons path; the small LinkedIn placeholder icon is an elementary line drawing.
+- Interface icons use **Lucide**, ISC licensed. GitHub uses the Simple Icons path; the small LinkedIn icon is an elementary line drawing.
 
 There are no remote font requests, stock portraits, fake client logos, or third-party image hotlinks.

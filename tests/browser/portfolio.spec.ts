@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { projects } from "../../src/lib/projects";
+import { additionalProjects } from "../../src/lib/additional-projects";
 
 async function fillEnquiry(page: import("@playwright/test").Page) {
   await page.getByLabel("Your name", { exact: false }).fill("Alex Example");
@@ -42,28 +43,74 @@ test("complete homepage: sections, verified links, images and no browser errors"
     "contact",
   ])
     await expect(page.locator(`#${id}`)).toBeVisible();
-  await expect(page.locator(".project-card")).toHaveCount(5);
+  await expect(page.locator(".project-card")).toHaveCount(projects.length);
   await expect(page.locator(".skill-card")).toHaveCount(5);
   await expect(page.locator(".service-card")).toHaveCount(6);
   await expect(page.locator(".process-list > li")).toHaveCount(5);
-  for (const project of projects)
+  for (const project of projects) {
     await expect(
       page.locator(`#work a[href="${project.liveUrl}"]`),
     ).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(
+      page.locator(`[data-project="${project.slug}"] .project-preview`),
+    ).toHaveAttribute("data-preview", project.slug);
+  }
+  await expect(page.locator(".featured-project")).toHaveCount(
+    projects.filter((project) => project.featured).length,
+  );
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.locator("#work").scrollIntoViewIfNeeded();
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll(".project-preview img")].every(
-      (image) =>
-        (image as HTMLImageElement).complete &&
-        (image as HTMLImageElement).naturalWidth > 0,
-    ),
-  );
+  // Lazy images should load when reached, not while still far below the fold.
+  for (const image of await page.locator(".project-preview img").all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        image.evaluate((element) => {
+          const img = element as HTMLImageElement;
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
+  }
   expect(errors).toEqual([]);
+});
+
+test("confirmed LinkedIn and WhatsApp contacts are linked without setup or tracking", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const linkedin =
+    "https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/";
+  const whatsapp = "https://wa.me/923391451101";
+  await expect(
+    page.locator(`.hero-socials a[href="${linkedin}"]`),
+  ).toBeVisible();
+  const contact = page.locator("#contact");
+  for (const [name, href] of [
+    ["LinkedIn", linkedin],
+    ["WhatsApp", whatsapp],
+  ]) {
+    const link = contact.getByRole("link", { name: new RegExp(name) });
+    await expect(link).toHaveAttribute("href", href);
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(link).toHaveAttribute("target", "_blank");
+    await link.focus();
+    await expect(link).toBeFocused();
+  }
+  await expect(contact.getByRole("link", { name: /WhatsApp/ })).toContainText(
+    "+92 339 1451101",
+  );
+  await expect(page.locator(".channel-placeholder")).toHaveCount(0);
+  await expect(
+    page.getByText(/Profile to be added|Number to be added/),
+  ).toHaveCount(0);
+  const person = JSON.parse(
+    await page.locator('script[type="application/ld+json"]').innerText(),
+  );
+  expect(person.sameAs).toContain(linkedin);
 });
 
 test("project filters and skill disclosures have real, keyboard-accessible state", async ({
@@ -73,14 +120,26 @@ test("project filters and skill disclosures have real, keyboard-accessible state
   const aiFilter = page.getByRole("button", { name: /AI & systems/ });
   await aiFilter.click();
   await expect(aiFilter).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator(".project-card")).toHaveCount(1);
+  const aiProjects = projects.filter(
+    (project) => project.category === "AI & systems",
+  );
+  await expect(page.locator(".project-card")).toHaveCount(aiProjects.length);
   await expect(page.locator(".project-card h3")).toHaveText(
-    "ProspectAI Studio",
+    aiProjects.map((project) => project.name),
+  );
+  await expect(page.locator('#work [aria-live="polite"]')).toHaveText(
+    `Showing ${aiProjects.length} ai & systems projects`,
   );
   await page.getByRole("button", { name: /Web experiences/ }).click();
-  await expect(page.locator(".project-card")).toHaveCount(4);
+  const webProjects = projects.filter(
+    (project) => project.category === "Web experiences",
+  );
+  await expect(page.locator(".project-card")).toHaveCount(webProjects.length);
+  await expect(page.locator(".project-card h3")).toHaveText(
+    webProjects.map((project) => project.name),
+  );
   await page.getByRole("button", { name: /All work/ }).click();
-  await expect(page.locator(".project-card")).toHaveCount(5);
+  await expect(page.locator(".project-card")).toHaveCount(projects.length);
   const disclosure = page.locator(".skill-details").first();
   await disclosure.locator("summary").focus();
   await page.keyboard.press("Enter");
@@ -206,9 +265,32 @@ test("all project routes, privacy, and the not-found page work", async ({
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toContainText(project.name);
     await expect(
-      page.getByRole("link", { name: /Visit live project|live demo/ }).first(),
+      page.getByRole("link", { name: /live demo|supplied demo/ }).first(),
     ).toHaveAttribute("href", project.liveUrl);
     await expect(page.locator(".preview-disclosure")).not.toBeEmpty();
+    await expect(
+      page.locator(".case-preview .project-preview"),
+    ).toHaveAttribute("data-preview", project.slug);
+    await expect(page.locator(".capability-card")).toHaveCount(
+      project.capabilities.length,
+    );
+    await expect(page.locator("h1")).toHaveCount(1);
+    const nextProject =
+      projects[(projects.indexOf(project) + 1) % projects.length];
+    await expect(page.locator(".next-project-link")).toHaveAttribute(
+      "href",
+      `/projects/${nextProject.slug}`,
+    );
+    if (project.demoStatus === "unverified") {
+      await expect(page.locator(".project-demo-note")).toContainText(
+        "Demo not verified",
+      );
+      await expect(page.locator(".case-story")).toHaveCount(0);
+      await expect(page.locator(".case-capabilities")).toHaveCount(0);
+      await expect(page.locator(".project-scope")).toContainText(
+        "page-review tool",
+      );
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -268,6 +350,39 @@ test("WCAG A/AA automated checks: home, enquiry dialog, project and privacy", as
   expect(results.violations).toEqual([]);
 });
 
+for (const project of additionalProjects) {
+  test(`${project.name}: accessible detail page and distinct preview without browser errors`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") errors.push(message.text());
+    });
+    await page.goto(`/projects/${project.slug}`, { waitUntil: "networkidle" });
+    const preview = page.locator(".case-preview .project-preview");
+    await expect(preview).toHaveAttribute("data-preview", project.slug);
+    await expect(preview).toHaveAttribute("aria-hidden", "true");
+    // The studies are illustrations, not fake embedded controls inside a link.
+    await expect(
+      preview.locator("a, button, input, select, textarea"),
+    ).toHaveCount(0);
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(
+      results.violations,
+      JSON.stringify(
+        results.violations.map((v) => ({
+          id: v.id,
+          targets: v.nodes.map((n) => n.target),
+        })),
+      ),
+    ).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
+
 test("narrow mobile, tablet-landscape and wide layouts never horizontally overflow", async ({
   page,
 }, testInfo) => {
@@ -275,18 +390,23 @@ test("narrow mobile, tablet-landscape and wide layouts never horizontally overfl
     testInfo.project.name !== "desktop",
     "Additional viewport sweep runs once.",
   );
-  await page.goto("/");
-  for (const width of [320, 360, 428, 600, 820, 850, 1024, 1280, 1920]) {
-    await page.setViewportSize({ width, height: 950 });
-    await expect
-      .poll(
-        () =>
-          page.evaluate(
-            () => document.documentElement.scrollWidth <= innerWidth,
-          ),
-        { message: `width ${width}` },
-      )
-      .toBe(true);
+  for (const path of [
+    "/",
+    ...projects.map((project) => `/projects/${project.slug}`),
+  ]) {
+    await page.goto(path);
+    for (const width of [320, 360, 428, 600, 820, 850, 1024, 1280, 1920]) {
+      await page.setViewportSize({ width, height: 950 });
+      await expect
+        .poll(
+          () =>
+            page.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth,
+            ),
+          { message: `${path} at width ${width}` },
+        )
+        .toBe(true);
+    }
   }
 });
 
@@ -335,7 +455,7 @@ test("progressive enhancement keeps projects and email available without JavaScr
   await page.goto(process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000");
   await expect(page.locator("h1")).toBeVisible();
   await expect(page.locator(".role-text")).toHaveText("Full-Stack Developer");
-  await expect(page.locator(".project-card")).toHaveCount(5);
+  await expect(page.locator(".project-card")).toHaveCount(projects.length);
   await expect(page.locator(".project-card").first()).toBeVisible();
   await expect(page.locator(".about-copy")).toBeVisible();
   await expect(page.locator(".skill-card").first()).toBeVisible();
@@ -345,10 +465,21 @@ test("progressive enhancement keeps projects and email available without JavaScr
       '.contact-email-row a[href="mailto:syedanoorfatima610@gmail.com"]',
     ),
   ).toBeVisible();
+  await expect(
+    page.locator('#contact a[href="https://wa.me/923391451101"]'),
+  ).toBeVisible();
+  await expect(
+    page.locator(
+      '#contact a[href="https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/"]',
+    ),
+  ).toBeVisible();
   await page
-    .getByRole("link", { name: "Explore Pinease", exact: true })
+    .getByRole("link", { name: "Explore MicroCredible", exact: true })
     .click();
-  await expect(page.locator("h1")).toContainText("Pinease");
+  await expect(page.locator("h1")).toContainText("MicroCredible");
+  await expect(
+    page.locator('.case-preview [data-preview="micro-credible"]'),
+  ).toBeVisible();
   await context.close();
 });
 

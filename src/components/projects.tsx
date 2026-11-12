@@ -23,6 +23,7 @@ function ProjectCard({
   return (
     <article
       className={`project-card ${featured ? "featured-project" : ""}`}
+      data-project={project.slug}
       aria-labelledby={`project-${project.slug}`}
     >
       <Link
@@ -40,7 +41,7 @@ function ProjectCard({
           {featured ? (
             <>
               <Sparkles size={12} aria-hidden="true" /> FEATURED PROJECT{" "}
-              <span className="kicker-slash">/</span> AI & SYSTEMS
+              <span className="kicker-slash">/</span> {project.category}
             </>
           ) : (
             project.kind
@@ -61,10 +62,17 @@ function ProjectCard({
           )}
         </div>
         <p className="project-description">{project.description}</p>
-        <p className="project-purpose">
-          <span>THE PURPOSE</span>
-          {project.problem}
-        </p>
+        {project.problem && (
+          <p className="project-purpose">
+            <span>THE PURPOSE</span>
+            {project.problem}
+          </p>
+        )}
+        {project.demoStatus === "unverified" && (
+          <p className="project-demo-note">
+            <span>Demo not verified</span> Feature review is pending.
+          </p>
+        )}
         <div className="project-tags">
           {project.technologies.slice(0, featured ? 5 : 4).map((tech) => (
             <span key={tech}>{tech}</span>
@@ -82,9 +90,11 @@ function ProjectCard({
           <ExternalLink
             href={project.liveUrl}
             className="text-link"
-            label={`${project.name} live demo`}
+            label={`${project.name} ${project.demoStatus === "unverified" ? "supplied demo (not verified)" : "live demo"}`}
           >
-            Live demo
+            {project.demoStatus === "unverified"
+              ? "Supplied demo"
+              : "Live demo"}
           </ExternalLink>
           {project.githubUrl && (
             <ExternalLink
@@ -172,11 +182,7 @@ export function Projects() {
           <AnimatePresence mode="popLayout">
             {visible.map((project) => (
               <motion.div
-                className={
-                  project.slug === "prospectai-studio"
-                    ? "project-span-full"
-                    : ""
-                }
+                className={project.featured ? "project-span-full" : ""}
                 key={project.slug}
                 layout={!reducedMotion}
                 initial={false}
@@ -186,7 +192,7 @@ export function Projects() {
               >
                 <ProjectCard
                   project={project}
-                  featured={project.slug === "prospectai-studio"}
+                  featured={Boolean(project.featured)}
                 />
               </motion.div>
             ))}

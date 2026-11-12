@@ -1,0 +1,778 @@
+.study {
+  container-type: inline-size;
+  --ink: #ecedf7;
+  --subtle: #a6b0cf;
+  --rule: #ffffff18;
+  --accent: #a6b4ff;
+  color: var(--ink);
+  background: #171f3b;
+}
+.canvas {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  width: 88%;
+  max-width: 800px;
+  height: 76%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #111629;
+  box-shadow: 0 18px 32px #0002;
+  overflow: hidden;
+  font-size: clamp(8px, 1.85cqw, 14px);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+:global(.project-visual-link:hover) .canvas,
+:global(.project-visual-link:focus-visible) .canvas {
+  transform: translate(-50%, -51%);
+}
+.caption {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--subtle);
+  font:
+    6px / 1.5 ui-monospace,
+    monospace;
+  letter-spacing: 0.7px;
+}
+.caption svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1.3em 1.8em;
+  border-bottom: 1px solid var(--rule);
+  min-height: 3.8em;
+}
+.brand {
+  font-family: var(--font-space), sans-serif;
+  font-size: 1.12em;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.45em;
+}
+.brand > svg {
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--accent);
+}
+.brandDot {
+  margin-left: -0.4em;
+  color: var(--accent);
+}
+.nav {
+  font-size: 0.57em;
+  color: var(--subtle);
+  white-space: nowrap;
+}
+.navIcon {
+  width: 1em;
+  height: 1em;
+}
+.eyebrow {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 0.55em;
+  letter-spacing: 0.07em;
+  color: var(--subtle);
+  line-height: 1.7;
+}
+.headline {
+  display: block;
+  font-family: var(--font-space), sans-serif;
+  font-size: 2.8em;
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+  margin-top: 0.45em;
+}
+.headline em {
+  display: block;
+  font-style: normal;
+  color: var(--accent);
+}
+.serif {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
+.serif em {
+  font-style: italic;
+}
+.miniButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5em;
+  padding: 0.8em 1.1em;
+  margin-top: 1.8em;
+  font-size: 0.65em;
+  color: #151a2d;
+  background: #b9c6ff;
+  border-radius: 4px;
+}
+.miniButton svg,
+.textCta svg {
+  width: 1.3em;
+  height: 1.3em;
+}
+.textCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4em;
+  padding-bottom: 0.65em;
+  margin-top: 2.8em;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.53em;
+  letter-spacing: 0.1em;
+}
+/* A practice workspace: typography and observed challenge topics, not credentials. */
+.micro {
+  background: radial-gradient(ellipse at 45% 35%, #344571, #182039 80%);
+}
+.micro .canvas {
+  height: 73%;
+  top: 49%;
+}
+.microLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 1.5em;
+  padding: 1.8em 1.8em 2.1em;
+  min-height: 0;
+}
+.microCopy p {
+  font-size: 0.7em;
+  margin-top: 1em;
+  color: var(--subtle);
+}
+.microCopy .headline {
+  font-size: 2.65em;
+}
+.challengeList {
+  padding: 1.3em;
+  border: 1px solid #47557b;
+  border-radius: 5px;
+  background: #1c243a;
+  box-shadow: 0 8px 24px #0002;
+}
+.challengeList > .eyebrow {
+  font-size: 0.48em;
+  margin-bottom: 1.4em;
+}
+.challenge {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  padding-block: 1.1em;
+  border-bottom: 1px solid #ffffff13;
+  font-size: 0.72em;
+}
+.challenge:last-child {
+  border-bottom: 0;
+}
+.challenge > svg {
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.challenge > svg:last-child {
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: auto;
+  color: #818dab;
+}
+.challenge b {
+  display: block;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.challenge span {
+  display: block;
+  color: #a0aac3;
+  font-size: 0.75em;
+  margin-top: 0.35em;
+}
+.microFooter,
+.roboticsFooter {
+  display: flex;
+  align-items: center;
+  gap: 2.5em;
+  padding: 1.3em 2.4em;
+  border-top: 1px solid var(--rule);
+  font-size: 0.64em;
+  color: var(--subtle);
+}
+.microFooter > span,
+.roboticsFooter > span {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.microFooter svg,
+.roboticsFooter svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+.footerArrow {
+  margin-left: auto;
+}
+/* Original vector jewellery, deliberately not a catalogue product photograph. */
+.jewels {
+  --ink: #463527;
+  --subtle: #7a6652;
+  --rule: #8b705d30;
+  --accent: #856134;
+  background: #bca991;
+}
+.jewels .canvas {
+  background: #f7efe3;
+}
+.jewels .caption {
+  color: #463527;
+}
+.jewelLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  min-height: 0;
+}
+.jewelCopy {
+  align-self: center;
+  position: relative;
+  z-index: 1;
+  padding: 1.5em 0 2em 2.2em;
+}
+.jewelCopy .headline {
+  font-size: 2.75em;
+  line-height: 1.13;
+  white-space: nowrap;
+}
+.jewelDrawing {
+  position: relative;
+  background: #f0e5d6;
+  margin-left: 0.6em;
+  overflow: hidden;
+}
+.jewelDrawing > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-7deg) scale(1.07);
+}
+.collectionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.8em;
+  border-top: 1px solid var(--rule);
+  padding: 1.45em 2em;
+  font-size: 0.5em;
+  letter-spacing: 0.12em;
+  color: var(--subtle);
+}
+.collectionFooter i {
+  height: 2px;
+  width: 2px;
+  background: currentColor;
+  border-radius: 50%;
+}
+/* Textile-inspired composition, without borrowed or simulated product photos. */
+.collection {
+  --ink: #382923;
+  --subtle: #796352;
+  --rule: #8e76672b;
+  --accent: #82533e;
+  background: #948578;
+}
+.collection .canvas {
+  background: #f3ece2;
+}
+.collection .caption {
+  color: #211915;
+}
+.collectionLayout {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 0.95fr;
+  min-height: 0;
+}
+.collectionCopy {
+  padding: 2em 0 2em 2.2em;
+  align-self: center;
+  position: relative;
+  z-index: 1;
+}
+.collectionCopy .headline {
+  font-size: 3.2em;
+}
+.textile {
+  position: relative;
+  overflow: hidden;
+  background: #ded1be;
+  margin-left: 1em;
+}
+.fabricBack,
+.fabricFront {
+  position: absolute;
+  width: 80%;
+  height: 170%;
+  top: -30%;
+  transform: rotate(24deg);
+  box-shadow: -8px 8px 20px #38221826;
+}
+.fabricBack {
+  right: -2%;
+  background: repeating-linear-gradient(
+    90deg,
+    #765641,
+    #94765b 23%,
+    #ad8c6b 27%,
+    #80634e 48%
+  );
+}
+.fabricFront {
+  width: 75%;
+  right: 15%;
+  background: linear-gradient(90deg, #5d3e2e, #906a50 60%, #a98161);
+  border-inline: 1px solid #d6bd91;
+}
+.fabricFront svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+.fabricLabel {
+  position: absolute;
+  bottom: 1.3em;
+  right: 1.6em;
+  font-size: 0.43em;
+  letter-spacing: 0.14em;
+  color: #f2e4d1;
+  writing-mode: vertical-rl;
+}
+/* Review scope, not a fabricated report, traffic graph, or score. */
+.agent {
+  --ink: #f4eeea;
+  --subtle: #b7afa7;
+  --accent: #e2a477;
+  background: #40382f;
+}
+.agent .canvas {
+  background: #1d252b;
+}
+.agent .brand > svg {
+  color: #e4ad84;
+}
+.auditBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.4em 2em 1.8em;
+  min-height: 0;
+}
+.auditHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5em;
+}
+.auditHeading .headline {
+  font-size: 2.5em;
+  margin-top: 0.35em;
+}
+.routeDrawing {
+  width: 26%;
+  max-height: 8em;
+  color: #e2a477;
+}
+.urlField {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-top: 1.6em;
+  padding: 0.85em 1em;
+  border: 1px solid #596065;
+  border-radius: 4px;
+  background: #ffffff05;
+  color: #b5bdc2;
+  font-size: 0.65em;
+}
+.urlField svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+.urlField svg:last-child {
+  margin-left: auto;
+  color: var(--accent);
+}
+.auditTopics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1em;
+  margin-top: 1.5em;
+}
+.auditTopics > div {
+  border-top: 1px solid #596065;
+  padding-top: 0.9em;
+}
+.auditTopics span {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 0.45em;
+  letter-spacing: 0.08em;
+  color: #b8a99e;
+  margin-bottom: 0.8em;
+}
+.auditTopics b {
+  display: block;
+  font-size: 0.7em;
+  font-weight: 400;
+  line-height: 1.4;
+}
+/* A technical learning diagram. No physical robot deployment is implied. */
+.robotics {
+  --ink: #dceee7;
+  --subtle: #9ebbb4;
+  --rule: #9cddd326;
+  --accent: #91cbbb;
+  background: #1c3532;
+}
+.robotics .canvas {
+  background: #112320;
+}
+.roboticsBody {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  padding: 1.6em 1.8em;
+}
+.roboticsCopy {
+  position: relative;
+  z-index: 1;
+}
+.roboticsCopy .eyebrow {
+  font-size: 0.48em;
+}
+.roboticsCopy .headline {
+  font-size: 3em;
+}
+.chapters {
+  display: grid;
+  gap: 0.9em;
+  margin-top: 2em;
+  font-size: 0.6em;
+  color: #b8cfc8;
+}
+.chapters i {
+  font:
+    0.85em ui-monospace,
+    monospace;
+  color: #6b9b8f;
+  margin-right: 1em;
+}
+.robotDiagram {
+  height: 100%;
+  max-height: 23em;
+  width: 100%;
+  min-height: 0;
+  color: #8dc8b5;
+}
+.roboticsFooter {
+  justify-content: space-between;
+  gap: 1em;
+  font-size: 0.5em;
+}
+/* SEO Pilot intentionally has no invented dashboard or feature preview. */
+.seo {
+  --ink: #e3edf1;
+  --subtle: #b1c4cb;
+  background: #20373f;
+}
+.seo .canvas {
+  background: #152a33;
+  border-color: #7195a35c;
+  box-shadow: none;
+}
+.seoMarker {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.2em;
+  background-image:
+    linear-gradient(#7195a30c 1px, transparent 1px),
+    linear-gradient(90deg, #7195a30c 1px, transparent 1px);
+  background-size: 3em 3em;
+}
+.seoTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  font:
+    0.56em ui-monospace,
+    monospace;
+  letter-spacing: 0.1em;
+  color: #aac4d0;
+}
+.seoMarker > strong {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+  font:
+    500 5em / 1 var(--font-space),
+    sans-serif;
+  letter-spacing: -0.07em;
+}
+.seoMarker > strong > span {
+  font-weight: 300;
+  font-size: 0.85em;
+  color: #7facae;
+}
+.seoBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  border-top: 1px solid #7195a34d;
+  padding-top: 1.5em;
+  font-size: 0.58em;
+  color: #b8ccd4;
+}
+.pendingDot {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font:
+    0.8em ui-monospace,
+    monospace;
+  letter-spacing: 0.05em;
+}
+.pendingDot::before {
+  content: "";
+  width: 0.6em;
+  height: 0.6em;
+  background: #d2b787;
+  border-radius: 50%;
+}
+/* An empty document outline, with no invented personal achievements. */
+.cv {
+  --ink: #354246;
+  --subtle: #51676d;
+  --rule: #6d848b30;
+  --accent: #446d79;
+  background: #91a4a8;
+}
+.cv .canvas {
+  background: #e9eff0;
+}
+.cv .topbar {
+  background: #f4f6f4;
+}
+.cv .caption {
+  color: #203237;
+}
+.cvWorkspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: 3em;
+  padding: 1.9em 3em 0;
+  overflow: hidden;
+}
+.cvSections > .eyebrow {
+  font-size: 0.5em;
+  margin-bottom: 2em;
+}
+.cvSections > div {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-block: 0.35em;
+  padding: 0.7em 0;
+  border-bottom: 1px solid #b7c6ca;
+  font-size: 0.68em;
+}
+.cvSections > div > i {
+  font:
+    0.8em ui-monospace,
+    monospace;
+  color: #526c74;
+}
+.cvSections > div > svg {
+  width: 1em;
+  height: 1em;
+  margin-left: auto;
+}
+.cvPrint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  background: #416975;
+  color: #f1f6f6;
+  padding: 0.85em;
+  margin-top: 0.8em;
+  font-size: 0.62em;
+  border-radius: 3px;
+}
+.cvPrint svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+.cvDocument {
+  background: #fffefa;
+  box-shadow: 0 4px 16px #31434926;
+  padding: 1.9em 1.7em;
+  min-height: 25em;
+  border-top: 3px solid #4b7782;
+}
+.documentName {
+  display: block;
+  font:
+    1.5em var(--font-space),
+    sans-serif;
+  letter-spacing: -0.02em;
+  color: #3c5964;
+}
+.documentRole {
+  display: block;
+  color: #526970;
+  margin-top: 0.6em;
+  font-size: 0.6em;
+}
+.documentRule {
+  height: 1px;
+  background: #bccbd0;
+  margin-top: 1.2em;
+}
+.documentSection {
+  margin-top: 1.3em;
+}
+.documentSection b {
+  display: block;
+  font-size: 0.45em;
+  letter-spacing: 0.1em;
+  color: #5e777e;
+  margin-bottom: 1.4em;
+}
+.documentSection i {
+  display: block;
+  height: 2px;
+  background: #d5dfdf;
+  width: 100%;
+  margin-top: 0.5em;
+}
+.documentSection i:last-child {
+  width: 65%;
+}
+.fallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: #171e2b;
+  color: #b8c1d2;
+  font-size: 12px;
+}
+@container (max-width: 380px) {
+  .canvas {
+    width: 90%;
+    font-size: 8px;
+  }
+  .topbar {
+    padding-inline: 1.4em;
+  }
+  .microLayout {
+    padding-inline: 1.4em;
+    gap: 0.7em;
+  }
+  .microCopy .headline {
+    font-size: 2.35em;
+  }
+  .challengeList {
+    padding: 1em;
+  }
+  .challenge {
+    gap: 0.5em;
+  }
+  .challenge > svg:last-child {
+    display: none;
+  }
+  .jewelCopy {
+    padding-left: 1.6em;
+  }
+  .jewelCopy .headline {
+    font-size: 2.6em;
+  }
+  .collectionCopy {
+    padding-left: 1.6em;
+  }
+  .collectionCopy .headline {
+    font-size: 2.8em;
+  }
+  .auditBody {
+    padding-inline: 1.5em;
+  }
+  .auditHeading .headline {
+    font-size: 2.3em;
+  }
+  .roboticsBody {
+    padding-inline: 1.4em;
+  }
+  .roboticsCopy .headline {
+    font-size: 2.7em;
+  }
+  .seoMarker {
+    padding: 1.8em;
+  }
+  .seoMarker > strong {
+    font-size: 4.3em;
+  }
+  .seoBottom {
+    flex-wrap: wrap;
+  }
+  .cvWorkspace {
+    gap: 1.7em;
+    padding-inline: 1.5em;
+  }
+  .caption {
+    font-size: 5px;
+    left: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .canvas {
+    transition: none;
+  }
+  :global(.project-visual-link:hover) .canvas,
+  :global(.project-visual-link:focus-visible) .canvas {
+    transform: translate(-50%, -50%);
+  }
+}
