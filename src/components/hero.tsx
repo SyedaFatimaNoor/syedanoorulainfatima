@@ -117,7 +117,7 @@ export function Hero({ linkedin }: { linkedin: string | null }) {
               <div className={styles.portraitBackdrop} aria-hidden="true" />
               <Image
                 src={portrait}
-                alt="Syeda Noor Fatima wearing a black hijab"
+                alt={`${site.name} wearing a black hijab`}
                 className={`hero-portrait ${styles.photo}`}
                 priority
                 sizes="(max-width: 599px) 90vw, (max-width: 699px) 480px, (max-width: 1200px) 42vw, 475px"

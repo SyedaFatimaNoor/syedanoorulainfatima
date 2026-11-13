@@ -4,9 +4,9 @@ Reviewed on **12 November 2026**. The portfolio now includes the original five p
 
 ## Identity and contact
 
-- Public profile: <https://github.com/SyedaFatimaNoor> — display name **Syeda Noor Fatima**, location **Karachi, Pakistan**.
-- Profile README: <https://github.com/SyedaFatimaNoor/SyedaFatimaNoor> — explicitly publishes **syedanoorfatima610@gmail.com** as a contact address.
-- Full-name form **Syeda Noor ul Ain Fatima** is consistent with the supplied repository name and project authorship metadata.
+- The owner explicitly confirmed her name as **Syeda Noor ul Ain Fatima**. This full name is authoritative for the portfolio’s visible credits, metadata, accessible names, privacy note, and social card.
+- Public profile: <https://github.com/SyedaFatimaNoor> — the initial research observed the abbreviated display name **Syeda Noor Fatima** and location **Karachi, Pakistan**. The owner’s subsequent correction takes precedence over that abbreviated profile label.
+- Profile README: <https://github.com/SyedaFatimaNoor/SyedaFatimaNoor> — explicitly publishes **syedanoorfatima610@gmail.com** as a contact address. The name correction does not change this address or any profile URL.
 - The owner directly supplied the LinkedIn profile <https://www.linkedin.com/in/syeda-noor-ul-ain-fatima-b146032ba/>. The supplied tracking query was removed. This replaces the profile README's old placeholder.
 - The owner directly supplied WhatsApp **+92 339 1451101**, linked as <https://wa.me/923391451101>. This number also appears on the public Noor's Collection site.
 - These confirmed details are defaults in `src/lib/site.ts`, including when old environment variables are blank. Valid overrides remain supported; unsafe nonempty overrides are not rendered as links.

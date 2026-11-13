@@ -23,7 +23,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: site.name,
-    alternateName: site.fullName,
+    alternateName: site.shortName,
     jobTitle: ["Full-Stack Developer", "AI Engineer", "AI Agent Developer"],
     description: site.description,
     email: site.email,

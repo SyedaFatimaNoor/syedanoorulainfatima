@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { browserLaunchOptions } from "./browser";
 import { site } from "../src/lib/site";
@@ -51,7 +51,13 @@ try {
     await Promise.all(Array.from(document.images, (image) => image.decode()));
   });
   await page.screenshot({ path: "src/app/opengraph-image.png" });
-  console.log("Wrote src/app/opengraph-image.png (1200 × 630).");
+  await writeFile(
+    new URL("../src/app/opengraph-image.alt.txt", import.meta.url),
+    `${site.name} — Full-Stack Developer, AI Engineer and AI Agent Developer. I build digital products with intelligence. Featuring the owner-selected portrait in a black hijab and blazer on a dark editorial background.\n`,
+  );
+  console.log(
+    "Wrote the 1200 × 630 social image and its matching full-name description.",
+  );
 } finally {
   await browser.close();
 }

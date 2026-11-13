@@ -1,5 +1,22 @@
 # Portfolio quality review
 
+## Owner-confirmed name correction
+
+Reviewed on **12 November 2026**, against the optimised production build on **`arena/978657ff-syedanoorulainfatima`**, based on the merged UI/portrait work from PR #3.
+
+- **Syeda Noor ul Ain Fatima** is now the canonical name. Hero and About copy, footer credits, home-link accessible names, page titles, author/SEO/social metadata, portrait descriptions, privacy copy, and the enquiry-draft greeting use the full name. The compact **Noor** wordmark is retained; Person structured data uses it as the alternate name rather than repeating the full name.
+- Regenerated the **1200 × 630** social image with the full name and the unchanged selected portrait. The generator now also writes its matching accessible description, preventing the bitmap and alt text from drifting apart.
+- Added wrapping safeguards for the longer portrait caption. Browser regression checks verify the exact spelling, structured data, privacy wording, unchanged contact destinations, and caption fit across the extra-width sweep.
+- Re-ran TypeScript, ESLint, formatting, **23 unit/API tests**, the production build (**22 generated pages**), **68 passing browser tests / 4 intentional duplicate skips**, and **39 route/viewport capture checks**. No browser errors or horizontal document overflow were detected. The same browser/environment limits described below still apply.
+- Visually reviewed the regenerated social card, desktop/tablet/mobile portrait captions, and footer credits, including the narrow 320px layout. Captures are local verification artefacts, ignored under `.cache/` rather than committed.
+- The selected portrait file, all twelve project records, external profile/contact destinations, and dependencies are unchanged. Research documentation preserves the originally observed abbreviated GitHub display name as a historical source fact, not the portfolio’s current identity.
+
+This review records local verification of the correction, before repository publication. Pull-request publishing, merging, and production-deployment checks are separate operations; no merge or cloud configuration change is part of this review. The preview was restarted after tests to clear test-only rate-limit state. The production-origin and automatic-email configuration limits below are unchanged.
+
+## Previous UI and portrait review
+
+The following records the earlier UI/portrait pass, subsequently merged through PR #3. Its branch and test totals are historical.
+
 Reviewed on **12 November 2026**, against the optimised production build of **`arena/fb8e6174-syedanoorulainfatima`**. This pass refreshes the UI and integrates the owner’s selected hijab portrait. It preserves the twelve-project portfolio, verified source mappings, confirmed contact details, and enquiry behaviour already merged in PR #2. The local preview runs this build with `npm start` on port 3000.
 
 ## Executed checks
